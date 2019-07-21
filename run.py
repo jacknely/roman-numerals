@@ -10,10 +10,15 @@ import app.Converter as Converter
 import sys
 
 
-if __name__ == '__main__':
+def main():
     try:
         a = sys.argv[1]
         result = Converter.main(a)
         print(result)
+        return result
     except Exception as error:
         print(error)
+
+
+if __name__ == '__main__':
+    main()
