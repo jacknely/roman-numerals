@@ -1,10 +1,25 @@
 import pytest
-
+import sys
 import run
+
+test_data = [("XCX", 120),
+             ("X", 10),
+             ("CMXX", 1120),
+             ("CMMXMMX", 4120)
+             ]
 
 
 class TestRomanNumerals:
 
-    def test_main_app(self):
-        result = run.Converter.main("XX")
-        assert result == 20
+    @pytest.mark.parametrize('roman, result', test_data)
+    def test_main_app(self, roman, result):
+        result = run.Converter.main(roman)
+        assert result == result
+
+    @pytest.mark.parametrize('roman, result', test_data)
+    def test_main_input(self, roman, result, monkeypatch):
+        with monkeypatch.context() as m:
+            m.setattr(sys, 'argv', ['run', roman])
+            assert run.main() == result
+
+
